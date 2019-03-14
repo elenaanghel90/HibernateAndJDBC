@@ -10,7 +10,7 @@ public class Student {
     @Id
     private int id;
     private String nume;
-    @Column(name = "Prenume")
+    @Column(name = "PRENUME")
     private String prenume;
 
     @OneToOne
@@ -25,6 +25,38 @@ public class Student {
         return id == student.id &&
                 nume.equals(student.nume) &&
                 certificat.equals(student.certificat);
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getNume() {
+        return nume;
+    }
+
+    public void setNume(String nume) {
+        this.nume = nume;
+    }
+
+    public String getPrenume() {
+        return prenume;
+    }
+
+    public void setPrenume(String prenume) {
+        this.prenume = prenume;
+    }
+
+    public Certificat getCertificat() {
+        return certificat;
+    }
+
+    public void setCertificat(Certificat certificat) {
+        this.certificat = certificat;
     }
 
     @Override

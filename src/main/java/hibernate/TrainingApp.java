@@ -7,7 +7,6 @@ import org.hibernate.boot.MetadataSources;
 import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 
-import java.nio.charset.CodingErrorAction;
 import java.util.List;
 
 public class TrainingApp {
@@ -18,12 +17,20 @@ public class TrainingApp {
 
     public static void main(String[] args) {
         SessionFactory();
-        //joinOneToOneShowStudentCertificat();
+        //joinOneToOneRetrieveStudentCertificat();
+        //createANewStudent(createCertificate(), "C", "Emanuel", 28);
+        //deleteNewStudent(28);
+        updateAStudent(26,"A");
+    }
+
+    private static Certificat createCertificate() {
         Certificat certificat = new Certificat();
         certificat.setId(1);
-        //createANewStudent(certificat, "C", "Emanuel", 28);
-        deleteNewStudent(28);
+
+        return certificat;
     }
+
+
 
     public static void SessionFactory() {
         // Create registry
@@ -40,7 +47,7 @@ public class TrainingApp {
         Session session = sessionFactory.openSession();
         session.beginTransaction();
 
-        Student newStudent = new Student(id, nume,prenume,certificat);
+        Student newStudent = new Student(id, nume, prenume, certificat);
         System.out.println(newStudent);
         session.persist(newStudent);
         session.getTransaction().commit();
@@ -48,7 +55,22 @@ public class TrainingApp {
 
     }
 
-    public static void deleteNewStudent(int id){
+    public static void updateAStudent(int id, String nume) {
+        Session session = sessionFactory.openSession();
+        session.beginTransaction();
+
+        Student oldStudent = session.find(Student.class, id);
+        oldStudent.setNume(nume);
+
+        session.update(oldStudent);
+
+        session.getTransaction().commit();
+        session.close();
+
+        System.out.println("The name of the student was updated");
+    }
+
+    public static void deleteNewStudent(int id) {
         Session session = sessionFactory.openSession();
         session.beginTransaction();
 
@@ -59,7 +81,7 @@ public class TrainingApp {
         System.out.println("My new student was deleted");
     }
 
-    public static void joinOneToOneShowStudentCertificat() {
+    public static void joinOneToOneRetrieveStudentCertificat() {
         Session session = sessionFactory.openSession();
         session.beginTransaction();
         String selectStudent = "SELECT S, C " +
