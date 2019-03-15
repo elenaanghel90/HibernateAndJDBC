@@ -11,6 +11,10 @@
         <property name="hibernate.hbm2ddl.auto">update</property>
         <mapping class="hibernate.Student"/>
         <mapping class="hibernate.Certificat"/>
+        <mapping class="hibernate.Locatie"/>
+        <mapping class="hibernate.Curs"/>
+        <mapping class="hibernate.City"/>
+        <mapping class="hibernate.Country"/>
 
     </session-factory>
 </hibernate-configuration>

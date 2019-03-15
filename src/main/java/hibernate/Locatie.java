@@ -1,9 +1,6 @@
 package hibernate;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 import java.util.List;
 import java.util.Objects;
 
@@ -11,9 +8,13 @@ import java.util.Objects;
 public class Locatie {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)//pentru a genera automat un ID in baza de date MySQL, pentru a nu mai introduce manual ID-ul
     private int id;
+    @Column(name = "ORAS")
     private String oras;
+    @Column(name = "STRADA")
     private String strada;
+    @Column(name = "NUMAR_SALA")
     private int numarSala;
 
     @OneToMany(mappedBy = "locatie")
