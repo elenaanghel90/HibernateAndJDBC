@@ -7,14 +7,16 @@ public class WorldApp {
     public static String user = "root";
     public static String pass = "Durduib90";
 
+
     public static void main(String[] args) {
 
         //getAllCountriesAndLanguages(url, user, pass);
-        showCapitalAndLanguages("ROM");
+        //showCapitalAndLanguages("ROM");
         //createANewCountry("FRU", "Frutia", "Asia", 123456);
         //updateHeadOfNewState("Elena Anghel");
         //deleteMyCountry("Frutia");
     }
+
 
     public static void getAllCountriesAndLanguages(String url, String user, String pass) {
         try (Connection conn = DriverManager.getConnection(url, user, pass);

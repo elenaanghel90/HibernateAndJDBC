@@ -7,10 +7,9 @@ import org.hibernate.boot.Metadata;
 import org.hibernate.boot.MetadataSources;
 import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
-
 import java.util.List;
 
-public class HibernateApp {
+public class WorldDBHibernate {
     public static StandardServiceRegistry registry;
     public static MetadataSources sources;
     public static Metadata metadata;
@@ -25,6 +24,23 @@ public class HibernateApp {
         //deleteMyCountry("ANG");
         //getCountriesAndCapitals();
         getCountriesWithLetterR("R%");
+    }
+
+    public static void getAllCountriesAAndTheirLanguage() {
+        Session session = sessionFactory.openSession();
+        Transaction transaction = session.beginTransaction();
+
+        List<Object[]> resultList = session.createQuery( "SELECT * FROM country C\n" +
+                "INNER JOIN countrylanguage CL\n" +
+                "ON C.Name = CL.Language; ")
+               //.setMaxResults(20)
+                .list();
+
+        for(Object[] c : resultList){
+            System.out.println(c[0]);
+            System.out.println(c[1]);
+        }
+
     }
 
     public static void SessionFactory() {
@@ -107,15 +123,16 @@ public class HibernateApp {
         session.getTransaction().commit();
         session.close();
     }
+
     //parameter binding
-    public static void getCountriesWithLetterR(String name){
+    public static void getCountriesWithLetterR(String name) {
         Session session = sessionFactory.openSession();
         session.beginTransaction();
 
-         List<Country> countries= session.createQuery(
+        List<Country> countries = session.createQuery(
                 "SELECT C FROM Country C WHERE C.name like :name", Country.class)
-                .setParameter("name",name)
-                 .getResultList();
+                .setParameter("name", name)
+                .getResultList();
 
         for (Country c : countries) {
             System.out.println(c);

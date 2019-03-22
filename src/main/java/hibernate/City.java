@@ -1,5 +1,6 @@
 package hibernate;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
@@ -9,15 +10,22 @@ import java.util.Objects;
 public class City {
     @Id
     private String ID;
-    private String Name;
+    @Column(name = "Name")
+    private String name;
 
+    @Column(name = "District")
+    private String district;
+    @Column(name = "Population")
+    private int population;
 
 
     @Override
     public String toString() {
         return "City{" +
                 "ID='" + ID + '\'' +
-                ", Name='" + Name + '\'' +
+                ", name='" + name + '\'' +
+                ", district='" + district + '\'' +
+                ", population=" + population +
                 '}';
     }
 
@@ -25,13 +33,21 @@ public class City {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
+
         City city = (City) o;
-        return ID.equals(city.ID) &&
-                Name.equals(city.Name);
+
+        if (population != city.population) return false;
+        if (ID != null ? !ID.equals(city.ID) : city.ID != null) return false;
+        if (name != null ? !name.equals(city.name) : city.name != null) return false;
+        return district != null ? district.equals(city.district) : city.district == null;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(ID, Name);
+        int result = ID != null ? ID.hashCode() : 0;
+        result = 31 * result + (name != null ? name.hashCode() : 0);
+        result = 31 * result + (district != null ? district.hashCode() : 0);
+        result = 31 * result + population;
+        return result;
     }
 }

@@ -17,6 +17,9 @@ public class Country {
     @OneToOne
     private City capital;
 
+    @OneToOne
+    private CountryLanguage percentage;
+
     public Country() {
     }
 
